@@ -1,0 +1,67 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Playermovement : MonoBehaviour
+{
+    public float Speed = 10f;
+
+    //jumping
+    private Rigidbody2D rb;
+    public float jumpSpeed = 5;
+    public bool Grounded = false;
+    
+    // Start is called before the first frame update
+    void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
+
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        Movemnt();
+        Jumpmovement();
+    }
+
+    void Movemnt() 
+    {
+        if (Input.GetKey(KeyCode.D))
+        {
+            transform.Translate(Vector3.right * Speed * Time.deltaTime);
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            transform.Translate(Vector3.left * Speed * Time.deltaTime);
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            transform.Translate(Vector3.down * Speed * Time.deltaTime);
+        }
+        if (Input.GetKey(KeyCode.W))
+        {
+            transform.Translate(Vector3.up * Speed * Time.deltaTime);
+        }
+
+
+    }
+
+    void Jumpmovement() 
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && Grounded) 
+        {
+            GetComponent<Rigidbody2D>().AddForce(transform.up * 3, ForceMode2D.Impulse);
+
+           /* rb.velocity = new Vector2(rb.velocity.x,jumpSpeed);*/
+        }
+    
+    }
+    private void OnCollisionEnter2D(Collision2D col)
+    {
+        Grounded = true;
+    }
+    private void OnCollisionExit2D(Collision2D col)
+    {
+        Grounded = false; 
+    }
+}
