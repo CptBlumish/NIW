@@ -59,9 +59,11 @@ public class Playermovement : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D col)
     {
         Grounded = true;
+        
     }
     private void OnCollisionExit2D(Collision2D col)
     {
         Grounded = false; 
+        
     }
 }
